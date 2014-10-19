@@ -1,0 +1,28 @@
+{% load humanize %}
+<div class="modal fade order" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class=" row ">
+                        <div class="  col-sm-6 col-sm-offset-3">
+                            <div class="total_area">
+                                <i class="fa fa-clock-o"></i>_{{order.time|date:"H:i"}}
+                                <i class="fa fa-calendar-o"></i>_{{order.time|date:"D d M Y"}}
+                                <ul>
+                                    <li>Order Id
+                                        <span>{{order.id}}</span>
+                                    </li>
+                                    <li>Time passed
+                                        <span>{{order.time|naturaltime}}</span>
+                                    </li>
+                                    <li>Total
+                                        <span>{{order.getOrderTotal}}</span>
+                                    </li>
+                                </ul>
+                                <a class="btn btn-default check_out" href="{% url 'order' %}">Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>

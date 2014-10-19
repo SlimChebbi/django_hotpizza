@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% load staticfiles %} {% block content %}
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'menu'  %}">Menu</a>
+                </li>
+                <li class="active">Customize</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<!--/#cart_items-->
+<section>
+    <form action="{% url 'selected' drink_id  2 %}" method="post">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <br>
+                <br>
+                <div class="col-sm-8 col-sm-offset-2 padding-right">
+                    <div class="product-details">
+                        <!--product-details-->
+                        <div class="col-sm-5">
+                            <img src="{{drink.image.url}}" alt="" height="300" width="300" />
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-information">
+                                <!--/product-information-->
+                                <h2>
+                                    <p>{{ drink.drink_name }}</p>
+                                </h2>
+                                <p>{{ drink.size_drink}}</p>
+                                <p>
+                                    <img src="{% static 'reservetion/images/product-details/rating.png' %}" alt="" />
+                                </p>
+                                <p>
+                                    <label>Quantity:</label>{{ form.quantity }}
+                                </p>
+                            </div>
+                            <!--/product-information-->
+                        </div>
+                    </div>
+                    <!--/product-details-->
+                    <input type="submit" value="Add To Cart" class="btn btn-fefault cart" />
+                </div>
+            </div>
+</section>
+{% endblock %}

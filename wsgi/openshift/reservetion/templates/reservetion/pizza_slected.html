@@ -1,0 +1,116 @@
+{% extends "base.html" %} {% load staticfiles %} {% block content %}
+
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'menu'  %}">Menu</a>
+                </li>
+                <li class="active">Customize</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<!--/#pizza_items-->
+<section>
+    <form action="{% url 'selected' pizza_id 1 %}" method="post">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <br>
+                <br>
+                <div class="col-sm-8 col-sm-offset-2 padding-right">
+                    <div class="product-details">
+                        <!--pizza-details-->
+                        <div class="col-sm-5">
+                            <img src="{{pizza.image.url}}" alt="" height="300" width="300" />
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-information">
+                                <!--/pizza-information-->
+                                <h2>
+                                    <p>{{ pizza.pizza_name }}</p>
+                                </h2>
+                                <p>{{ pizza.pizza_description}}</p>
+                                <p>{{ pizza.pizza_price }}</p>
+                                <p>
+                                    <img src="{% static 'reservetion/images/product-details/rating.png' %}" alt="" />
+                                </p>
+                                <p>
+                                    {{ form.size }}
+                                </p>
+                                <p>
+                                    <label>Quantity:</label>{{ form.quantity }}
+                                </p>
+                            </div>
+                            <!--/pizza-information-->
+                        </div>
+                    </div>
+                    <!--/pizza-details-->
+                    <div class="category-tab shop-details-tab">
+                        <!--option-tab-->
+                        <div class="col-sm-12">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#sauces" data-toggle="tab">Sauce</a>
+                                </li>
+                                <li><a href="#chesse" data-toggle="tab">Chesse</a>
+                                </li>
+                                <li><a href="#meat" data-toggle="tab">Meat</a>
+                                </li>
+                                <li><a href="#suppliment" data-toggle="tab">Suppliment</a>
+                                </li>
+                                <li><a href="#reviews" data-toggle="tab">Reviews (5)</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--/option-tab-->
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in" id="sauces">
+                                <div class="col-sm-4">
+                                    {% for radio in form.sauce %} {{ radio}}
+                                    <br>{% endfor %}
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="chesse">
+                                <div class="col-sm-4">
+                                    {% for box in form.cheese %} {{ box}}
+                                    <br>{% endfor %}
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="meat">
+                                <div class="col-sm-4">
+                                    {% for box in form.supplement_meat %} {{ box}}
+                                    <br>{% endfor %}
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="suppliment">
+                                <div class="col-sm-4">
+                                    {% for box in form.supplement_no_meat %} {{ box}}
+                                    <br>{% endfor %}
+                                </div>
+                            </div>
+                            <div class="tab-pane fade " id="reviews">
+                                <div class="col-sm-12">
+                                    <p><b>Write Your Review</b>
+                                    </p>
+                                    <form action="#">
+                                        <span>
+                                            <input type="text" placeholder="Your Name" />
+                                            <input type="email" placeholder="Email Address" />
+                                        </span>
+                                        <textarea name=""></textarea>
+                                        <button type="button" class="btn btn-default pull-right">
+                                            Add To Cart
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/pizza-details-->
+
+                    <input type="submit" value="Add To Cart" class="btn btn-fefault cart" />
+                </div>
+            </div>
+</section>
+{% endblock %}

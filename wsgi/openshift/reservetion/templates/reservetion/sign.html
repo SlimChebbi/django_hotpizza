@@ -1,0 +1,119 @@
+{% extends "base.html" %} {% load staticfiles %}
+
+{% block header %}{% include "header2.html" %}{% endblock %}
+
+
+
+
+{% block content %}
+
+    <section>
+        <div class="container">
+            <h2 class="title text-center">New Account</h2>
+            <div class="row">
+                <br>
+                <br>
+                <div class="col-sm-3 col-sm-offset-1">
+                    <div class="login-form">
+                        <!--login form-->
+                        <h2>Login to your account</h2>
+                        <br>
+                        <div class="left-sidebar">
+                            <form "{% url 'sign'  %}" method="post">{% csrf_token %}
+                                <h5>
+                                    <font color='red'>{{form.errors}}</font>
+                                </h5>
+                                {{form.username}} {{form.first_name}} {{form.last_name}} {{form.password1}} {{form.password2}} {{form.email}} {{form.address}} {{form.phone}} {{form.alt}} {{form.lng}}
+                                <button type="submit" class="btn btn-default">Signup</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!--/login form-->
+                </div>
+                <div class="login-form">
+                    <!--login form-->
+                    <h2>Choose you location in the map</h2>
+                    <h5>
+                        <font color='red'>{{form.alt.errors}}</font>
+                    </h5>
+                    <div class="col-sm-7 col-sm-offset-1">
+                        <br>
+                        <div class="productinfo text-center">
+                            <div class="col-sm-offset-1" id="map_canvas" style="width:500; height:460"></div>
+                            <div id="latlong">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+{% endblock %}
+{% block bib %}
+
+ <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+
+    <style>
+    body {
+        text-align: center;
+    }
+    .gmap3 {
+        margin: 20px auto;
+        border: 1px dashed #C0C0C0;
+        width: 500px;
+        height: 500px;
+    }
+    </style>
+    <script type="text/javascript">
+    var map;
+
+    function initialize() {
+        var myLatlng = new google.maps.LatLng(36.85341604753753, 10.176080866332995);
+        var myLatlng2 = new google.maps.LatLng(36.85485830053066, 10.176166697021472);
+        var myOptions = {
+            zoom: 14,
+            minZoom: 14,
+            center: myLatlng,
+            draggable: false,
+            mapTypeId: google.maps.MapTypeId.SATELLITE
+        }
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        var marker = new google.maps.Marker({
+            draggable: false,
+            position: myLatlng,
+            map: map,
+            icon: "{% static 'reservetion/images/pizzaria.png' %}",
+            title: "PizzaNow"
+        });
+        var marker2 = new google.maps.Marker({
+            draggable: true,
+            position: myLatlng2,
+            map: map,
+            title: "Move the Mark to your location"
+        });
+        google.maps.event.addListener(marker2, 'dragend', function(event) {
+            document.getElementById("id_alt").value = this.getPosition().lat();
+            document.getElementById("id_lng").value = this.getPosition().lng();
+        });
+    }
+    </script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,137 @@
+{% extends "base.html" %} {% load staticfiles %} {% load humanize %} {% block content %}
+<section id="cart_items">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="alert alert-info alert-dismissible" role="alert" {% endif %}>
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            {{ message }}
+            </li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'menu'  %}">Menu</a>
+                </li>
+                <li class="active">Your Order</li>
+            </ol>
+        </div>
+        <h2 class="title text-center">Order Summary</h2>
+        <div class=" row ">
+            <div class="  col-sm-4 col-sm-offset-1">
+                <div class="blog-post-area">
+                    <div class="post-meta">
+                        <ul>
+                            <li><i class="fa fa-tag"></i> {{order.id}}</li>
+                            <li><i class="fa fa-clock-o"></i> {{order.time|date:"H:i"}}</li>
+                            <li><i class="fa fa-calendar"></i> {{order.time|date:"D d M Y"}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive cart_info col-sm-8 col-sm-offset-2">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image col-sm-2"></td>
+                        <td class="description col-sm-2">Pizza</td>
+                        <td class="price col-sm-2 col-sm-offset-1">Unit Price</td>
+                        <td class="quantity col-sm-2">Quantity</td>
+                        <td class="total col-sm-2">SubTotal</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for choice in order.getOrderPizzas %}
+                    <tr>
+                        <td class="cart_product">
+                            <a href="">
+                                <img src="{{choice.pizza.image.url}}" height="100" width="100" alt="">
+                            </a>
+                        </td>
+                        <td class="cart_description">
+                            <h4>{{choice.pizza.pizza_name}}</h4>
+                            <div class="panel-group category-products" id="accordian">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <p class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordian" href="#{{choice.id}}">
+                                                <span class="badge pull-right"><i class="fa fa-plus"></i>
+                                                </span>
+                                                Option(s)
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div id="{{choice.id}}" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul>
+                                                {% for option in choice.getOption %}
+                                                <li><a href="#">{{option }}</a>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="cart_price">
+                            <p>{{choice.unit_price}}</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <input class="cart_quantity_input" type="text" name="quantity" value="{{choice.quantity}}" autocomplete="off" size="2">
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">{{choice.total_price}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %} {% for choice in order.getOrderDrinks %}
+                    <tr>
+                        <td class="cart_product">
+                            <a href="">
+                                <img src="{{choice.drink.image.url}}" height="100" width="100" alt="">
+                            </a>
+                        </td>
+                        <td class="cart_description">
+                            <h4>{{choice.drink.drink_name}}</h4>
+                        </td>
+                        <td class="cart_price">
+                            <p>{{choice.unit_price}}</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <input class="cart_quantity_input" type="text" name="quantity" value="{{choice.quantity}}" autocomplete="off" size="2">
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">{{choice.total_price}}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3">&nbsp;</td>
+                        <td colspan="2">
+                            <table class="table table-condensed total-result">
+                                <tr>
+                                    <td>Total</td>
+                                    <td>
+                                        <span>{{ order.getOrderTotal }}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!--/#cart_items-->
+{% endblock %}

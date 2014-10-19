@@ -1,0 +1,13 @@
+<html lang="en">
+{% load staticfiles %} {% include "head.html" %}
+
+<body onLoad="initialize()">
+{% block header %}{% include "header.html" %}{% endblock %}
+
+    {% block content %}{% endblock %}
+    {% include "footer.html" %}
+    {% block bib %}{% endblock %}
+
+</body>
+
+</html>

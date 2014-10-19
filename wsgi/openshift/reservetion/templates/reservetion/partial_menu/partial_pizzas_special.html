@@ -1,0 +1,49 @@
+{% load staticfiles %}
+<div class="tab-pane " id="tab_c">
+    <div class="features_items">
+        {% for choice in pizzaspecial %}
+        <div class="col-sm-4 col-sm-offset-1">
+            <div class="product-image-wrapper">
+                <div class="single-products">
+                    <div class="productinfo text-center">
+                        <img src="{{choice.image.url}}" height="200" width="200" alt="" />
+                        <p>{{ choice.pizza_name }}</p>
+                        {% if not order %}
+                        <a href="{% url 'selected' choice.id 1 %}" class="btn btn-default add-to-cart"><i class="fa fa-plus"></i>Customize</a>
+                        {% endif %}
+                    </div>
+                    <div class="product-overlay">
+                        <div class="overlay-content">
+                            <p>{{ choice.pizza_name }}</p>
+                            <p>Starting From: 9.00</p>
+                            <p>{{ choice.pizza_description}}</p>
+                            {% if not order %}
+                            <a href="{% url 'selected' choice.id 1 %}" class="btn btn-default add-to-cart"><i class="fa fa-plus"></i>Customize</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <img src="{% static 'reservetion/images/home/new.png' %}" class="new" alt="" />
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-sm-offset-6">
+        <ul class="pagination">
+            <li>{% if pizzaspecial.has_previous %}
+                <a href="?page={{ pizzaspecial.previous_page_number }}">&laquo;</a>
+                {% endif %}
+            </li>
+            {% for i in pizzaspecial.paginator.page_range %} {% ifequal i pizzaspecial.number %}
+            <li class="active"><a href="?page={{ i }}">{{i}}</a>
+            </li>
+            {% else %}
+            <li><a href="?page={{ i }}">{{i}}</a>
+            </li>
+            {% endifequal %} {% endfor %}
+            <li>{% if pizzaspecial.has_next %}
+                <a href="?page={{ pizzaspecial.next_page_number }}">&raquo;</a>
+                {% endif %}</li>
+        </ul>
+    </div>
+</div>

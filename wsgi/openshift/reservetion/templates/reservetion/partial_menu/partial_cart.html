@@ -1,0 +1,24 @@
+{% if cart.getCartTotal %}
+<h2>Cart Contents</h2>
+<div class="total_area ">
+    <ul>
+        {% for choice in cart.getCartPizzas %}
+        <li>
+            <a href="#" data-toggle="tooltip" title="
+            Pizza : {{choice.pizza.pizza_name}}<br>
+            Quantity:{{choice.quantity}}<br>
+            Total Price : {{choice.total_price}}" rel="tooltip" data-html="true">{{choice.pizza.pizza_name}}<span>{{choice.total_price}}</span></a>
+        </li>
+        {% endfor %} {% for choice in cart.getCartDrinks %}
+        <li><a href="#" data-toggle="tooltip" title="Drink : {{choice.drink.drink_name}}<br>
+            Quantity:{{choice.quantity}}<br>
+            Total Price : {{choice.total_price}}" rel="tooltip" data-html="true">{{choice.drink.drink_name}}<span>{{choice.total_price}}</span></a>
+        </li>
+        {% endfor %}
+        <li>Total
+            <span>{{cart.getCartTotal}}</span>
+        </li>
+    </ul>
+    <a class="btn btn-default check_out" href="{% url 'cart'  %}">Check Cart</a>
+</div>
+{% endif %}

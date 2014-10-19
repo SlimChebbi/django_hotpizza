@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% load staticfiles %} {% block content %}
+<section>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="alert alert-info alert-dismissible" role="alert" {% endif %}>
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="container">
+        <h2 class="title text-center">Menu</h2>
+        <div class="row">
+            <br>
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <br>
+                    <ul class="nav nav-pills nav-stacked ">
+                        <li class="active"><a href="#tab_a" data-toggle="pill">Classic</a>
+                        </li>
+                        <li><a href="#tab_c" data-toggle="pill">Special </a>
+                        </li>
+                        <li><a href="#tab_b" data-toggle="pill">Drinks</a>
+                        </li>
+                    </ul>
+                    <br>
+                    <br>
+                    <br>
+                    <br>{% include "reservetion/partial_menu/partial_cart.html" %} {% include "reservetion/partial_menu/partial_order.html" %}
+                </div>
+            </div>
+            <div class="tab-content ">
+                {% include "reservetion/partial_menu/partial_pizzas_classic.html" %} {% include "reservetion/partial_menu/partial_pizzas_special.html" %} {% include "reservetion/partial_menu/partial_drinks.html" %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+</section>
+{% endblock %}
+{% block bib %}
+<script type="text/javascript">
+$(function() {
+    $("[rel='tooltip']").tooltip();
+});
+</script>
+{% endblock %}
+

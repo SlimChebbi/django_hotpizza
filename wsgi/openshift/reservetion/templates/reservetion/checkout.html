@@ -1,0 +1,81 @@
+{% extends "base.html" %} {% load staticfiles %} {% load webdesign %} {% block content %}
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'menu' %}">Menu</a>
+                </li>
+                <li class="active">CheckOut</li>
+            </ol>
+        </div>
+
+    </div>
+</section>
+<!--/#cart_items-->
+<section id="do_action">
+    <div class="container">
+
+        <div class="step-one">
+            <h2 class="heading">How you like to delivry the order ?</h2>
+        </div>
+        {% lorem p %}
+
+        <form name="form1" action="{% url 'checkout' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class='col-sm-4 col-sm-offset-4'>
+                    <div class="chose_area">
+                        <div class='col-sm-offset-1'>
+
+                            <div class='col-sm-offset-1'>
+                                {% for radio in form.delivry_type %} {{ radio}} {% endfor %}
+                                <br>
+                            </div>
+                            <div class='col-sm-offset-1' id="cl" style="visibility:hidden">
+
+                                {% for radio in form.option %} {{ radio}} {% endfor %}
+                            </div>
+                            <br>
+                            <div id="time" style="visibility:hidden">
+
+
+                                <a href=""><i class="fa fa-calendar-o"></i>{% now "jS F Y "%}</a>
+                                <div class='col-sm-6'>{{ form.time}}</div>
+
+
+
+                            </div>
+
+                            <br>
+                            <div class='col-sm-offset-3'>
+                                <input type="submit" value="Continue" class="btn btn-fefault cart" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+        </form>
+        </div>
+</section>
+<!--/#do_action-->
+{% endblock %}
+{% block bib %}
+<script type="text/javascript">
+function visibel() {
+
+    document.getElementById('cl').style.visibility = 'visible';
+}
+var radios = document.getElementsByName('option');
+
+function timevisible() {
+    if (radios[1].checked) {
+        document.getElementById('time').style.visibility = 'visible';
+    }
+    if (radios[0].checked) {
+        document.getElementById('time').style.visibility = 'hidden';
+    }
+
+}
+</script>
+
+{% endblock %}

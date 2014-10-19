@@ -1,0 +1,25 @@
+{% if order %}
+<h2>Order Contents</h2>
+<div class="total_area ">
+    <ul>
+        {% for choice in order.getOrderPizzas %}
+        <li>
+            <a href="#" data-toggle="tooltip" title="
+            Pizza : {{choice.pizza.pizza_name}}<br>
+            Quantity:{{choice.quantity}}<br>
+            Total Price : {{choice.total_price}}" rel="tooltip" data-html="true">{{choice.pizza.pizza_name}}<span>{{choice.total_price}}</span></a>
+        </li>
+        {% endfor %}
+        {% for choice in order.getOrderDrinks %}
+        <li><a href="#" data-toggle="tooltip" title="Drink : {{choice.drink.drink_name}}<br>
+                Quantity:{{choice.quantity}}<br>
+                Total Price : {{choice.total_price}}" rel="tooltip" data-html="true">{{choice.drink.drink_name}}<span>{{choice.total_price}}</span></a>
+        </li>
+        {% endfor %}
+        <li>Total
+            <span>{{order.getOrderTotal}}</span>
+        </li>
+    </ul>
+    <a class="btn btn-default check_out" href="{% url 'order'  %}">Check Order</a>
+</div>
+{% endif %}

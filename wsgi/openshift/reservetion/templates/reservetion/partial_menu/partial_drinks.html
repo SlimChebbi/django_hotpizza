@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<div class="tab-pane " id="tab_b">
+    <div class="features_items">
+        {% for choice in drinkslist %}
+        <div class="col-sm-4 col-sm-offset-1">
+            <div class="product-image-wrapper">
+                <div class="single-products">
+                    <div class="productinfo text-center">
+                        <img src="{{choice.image.url}}" height="200" width="200" alt="" />
+                        <p>{{ choice.drink_name }}</p>
+                        {% if not order %}
+                        <a href="{% url 'selected' choice.id 2 %}" class="btn btn-default add-to-cart"><i class="fa fa-plus"></i>Add To Cart</a>
+                        {% endif %}
+                    </div>
+                    <div class="product-overlay">
+                        <div class="overlay-content">
+                            <p>{{ choice.drink_name }}</p>
+                            <p>{{ choice.size_drink}}</p>
+                            {% if not order %}
+                            <a href="{% url 'selected' choice.id 2 %}" class="btn btn-default add-to-cart"><i class="fa fa-plus"></i>Add To Cart</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <img src="{% static 'reservetion/images/home/new.png' %}" class="new" alt="" />
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-sm-offset-6">
+        <ul class="pagination">
+            <li>{% if drinkslist.has_previous %}
+                <a href="?pagedrink={{ drinkslist.previous_page_number }}">&laquo;</a>
+                {% endif %}
+            </li>
+            {% for i in drinkslist.paginator.page_range %} {% ifequal i drinkslist.number %}
+            <li class="active"><a href="?pagedrink={{ i }}">{{i}}</a>
+            </li>
+            {% else %}
+            <li><a href="?pagedrink={{ i }}">{{i}}</a>
+            </li>
+            {% endifequal %} {% endfor %}
+            <li>{% if drinkslist.has_next %}
+                <a href="?pagedrink={{ drinkslist.next_page_number }}">&raquo;</a>
+                {% endif %}</li>
+        </ul>
+    </div>
+</div>
